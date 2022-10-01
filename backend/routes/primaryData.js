@@ -18,6 +18,16 @@ router.get("/", (req, res, next) => {
     ).sort({ 'updatedAt': -1 }).limit(10);
 });
 
+router.get("/client/:organizationName", (req, res, next) => { 
+    primarydata.find({ organizationName: req.params.organizationName }, (error, data) => {
+        if (error) {
+            return next(error)
+        } else {
+            res.json(data)
+        }
+    })
+});
+
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => {
     primarydata.find( 
@@ -57,7 +67,7 @@ router.get("/search/", (req, res, next) => {
 
 //GET events for a single client
 router.get("/events/:id", (req, res, next) => { 
-    
+    //add later
 });
 
 //POST
