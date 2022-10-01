@@ -28,6 +28,19 @@ router.get("/id/:id", (req, res, next) => {
     })
 });
 
+//GET events based on organization
+
+router.get("/events/:orgname", (req, res, next) => { 
+    eventdata.find({ organizationName: req.params.orgname }, (error, data) => {
+        if (error) {
+            return next(error)
+        } else {
+            res.json(data)
+        }
+    })
+});
+
+
 //GET entries based on search query
 //Ex: '...?eventName=Food&searchBy=name' 
 router.get("/search/", (req, res, next) => { 
