@@ -9,7 +9,14 @@ let primaryDataSchema = new Schema({
     firstName: {
         type: String,
         require: true
+        
     },
+    Id: {
+        type: Number,
+        require: true,
+        unique: true
+    },
+
     organizationName: {
         type: String,
         required: true

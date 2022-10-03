@@ -101,5 +101,19 @@ router.put("/:id", (req, res, next) => {
         }
     );
 });
+//DELETE by _id
+router.delete("/client/:Id", (req, res, next) => {
+    //mongoose will use _id of document
+    primarydata.findOneAndRemove({Id: req.params.Id }, (error, data) => {
+        if (error) {
+            return next(error);
+        } else {
+            res.status(200).json({
+                msg: data
+            });
+            //  res.send('event is deleted');
+        }
+    });
+});
 
 module.exports = router;
