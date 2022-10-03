@@ -11,12 +11,11 @@ let primaryDataSchema = new Schema({
         require: true
         
     },
-    Id: {
+    Clientid: {
         type: Number,
-        require: true,
-        unique: true
+        required: true,
+        unique: true //used for delete functionality
     },
-
     organizationName: {
         type: String,
         required: true
