@@ -40,6 +40,18 @@ router.get("/events/:organizationName", (req, res, next) => {
     })
 });
 
+// Get attendees of an event (Not completed)
+router.get("/attendees/:eventName", (req, res, next) => { 
+    eventdata.find({ eventName: req.params.eventName }, (error, data) => {
+        if (error) {
+            return next(error)
+        } else {
+            res.json(data)
+        }
+    })
+});
+
+
 
 //GET entries based on search query
 //Ex: '...?eventName=Food&searchBy=name' 
@@ -136,17 +148,14 @@ router.put("/addAttendee/:id", (req, res, next) => {
     );
     
 });
-//DELETE by _id
+//DELETE by event name
 router.delete("/events/:eventName", (req, res, next) => {
-    //mongoose will use _id of document
+    //mongoose will use eventName of document
     eventdata.findOneAndRemove({eventName: req.params.eventName }, (error, data) => {
         if (error) {
             return next(error);
         } else {
-            res.status(200).json({
-                msg: data
-            });
-            //  res.send('event is deleted');
+            res.send('event is deleted');
         }
     });
 });
