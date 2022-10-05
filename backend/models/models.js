@@ -8,8 +8,7 @@ let primaryDataSchema = new Schema({
     _id: { type: String, default: uuid.v1 },
     firstName: {
         type: String,
-        require: true
-        
+        require: true        
     },
     Clientid: {
         type: Number,
@@ -75,7 +74,7 @@ let eventDataSchema = new Schema({
     date: {
         type: Date,
         required: true
-    },
+    },          
     address: {
         line1: {
             type: String
