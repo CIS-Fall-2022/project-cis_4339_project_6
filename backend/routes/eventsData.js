@@ -40,11 +40,24 @@ router.get("/events/:organizationName", (req, res, next) => {
     })
 });
 
-// Get attendees of an event (Not completed)
+//GET attendees of all events from the last 2 months based on organization (not completed, missing date specification)
+
+router.get("/eventattendees/:organizationName", (req, res, next) => { 
+    eventdata.aggregate([ { $match: { organizationName: req.params.organizationName } },
+        { $project: { _id: 0, attendees: 1, eventName: 1} }], (error, data) => {
+        if (error) {
+            return next(error)
+        } else {
+            res.json(data)
+        }
+    })
+});
+
+// Get attendees of a specific event
 router.get("/attendees/:eventName", (req, res, next) => { 
     //use of aggregate function to access a particular field of eventdata
     eventdata.aggregate([ { $match: { eventName: req.params.eventName } },
-        { $project: { _id: 0, attendees: 1} }], (error, data) => {
+        { $project: { _id: 0, attendees: 1, eventName: 1} }], (error, data) => {
         if (error) {
             return next(error)
         } else {
