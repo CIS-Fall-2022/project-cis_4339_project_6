@@ -46,7 +46,8 @@ router.get("/attendees/:eventName", (req, res, next) => {
         if (error) {
             return next(error)
         } else {
-            res.json(data)
+            var attendees = req.query["attendees"]
+            res.json(attendees)
         }
     })
 });
