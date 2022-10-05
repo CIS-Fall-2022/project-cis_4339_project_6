@@ -139,7 +139,7 @@ router.put("/addAttendee/:id", (req, res, next) => {
                                 consol
                                 return next(error);
                             } else {
-                                res.json(data);
+                                res.send("attendee has been added");
                             }
                         }
                     );
