@@ -101,16 +101,13 @@ router.put("/:id", (req, res, next) => {
         }
     );
 });
-//DELETE by _id
+//DELETE by id
 router.delete("/client/:id", (req, res, next) => {
     primarydata.findOneAndRemove({Clientid: req.params.id }, (error, data) => {
         if (error) {
             return next(error);
         } else {
-            res.status(200).json({
-                msg: data
-            });
-            //  res.send('event is deleted');
+            res.send('event is deleted');
         }
     });
 });
