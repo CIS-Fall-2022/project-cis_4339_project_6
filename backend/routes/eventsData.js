@@ -42,12 +42,13 @@ router.get("/events/:organizationName", (req, res, next) => {
 
 // Get attendees of an event (Not completed)
 router.get("/attendees/:eventName", (req, res, next) => { 
-    eventdata.find({ eventName: req.params.eventName }, (error, data) => {
+    //use of aggregate function to access a particular field of eventdata
+    eventdata.aggregate([ { $match: { eventName: req.params.eventName } },
+        { $project: { _id: 0, attendees: 1} }], (error, data) => {
         if (error) {
             return next(error)
         } else {
-            var attendees = req.query["attendees"]
-            res.json(attendees)
+            res.json(data)
         }
     })
 });
