@@ -40,14 +40,20 @@ router.get("/events/:organizationName", (req, res, next) => {
     })
 });
 
-//GET attendees of all events from the last 2 months based on organization (not completed, missing date specification)
+//GET attendees of all events from the last 2 months based on organization
 
 router.get("/eventattendees/:organizationName", (req, res, next) => { 
-    eventdata.aggregate([ { $match: { organizationName: req.params.organizationName } },
-        { $project: { _id: 0, attendees: 1, eventName: 1} }], (error, data) => {
+    currentDate = new Date()
+    function subtractMonths(numOfMonths, date = new Date()) {
+    date.setMonth(date.getMonth() - numOfMonths);
+    return date;
+} // this code is from https://bobbyhadz.com/blog/javascript-date-subtract-months#:~:text=function%20subtractMonths(numOfMonths%2C%20date%20%3D,Sun%20Feb%2027%202022%20console.
+    eventdata.aggregate([ { $match: { organizationName: req.params.organizationName, 
+        date : {$lte: currentDate, $gte: subtractMonths(2)}}}, //date has to be higher than current date minus two months
+        { $project: { _id: 0, attendees: 1, eventName: 1, date : 1}}], (error, data) => {
         if (error) {
             return next(error)
-        } else {
+        } else  {
             res.json(data)
         }
     })
