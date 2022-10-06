@@ -18,6 +18,8 @@ router.get("/", (req, res, next) => {
     ).sort({ 'updatedAt': -1 }).limit(10);
 });
 
+//GET all clients based on organizationName
+
 router.get("/client/:organizationName", (req, res, next) => { 
     primarydata.find({ organizationName: req.params.organizationName }, (error, data) => {
         if (error) {
