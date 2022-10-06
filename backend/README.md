@@ -21,3 +21,6 @@ npm start
 
 ## API DOCUMENTATION:
 
+https://documenter.getpostman.com/view/19742070/2s83zdxSAm
+
+
