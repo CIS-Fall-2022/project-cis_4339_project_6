@@ -30,8 +30,8 @@ router.get("/id/:id", (req, res, next) => {
 
 //GET events based on organization
 
-router.get("/events/:organizationName", (req, res, next) => { 
-    eventdata.find({ organizationName: req.params.organizationName }, (error, data) => {
+router.get("/events/:Organizationid", (req, res, next) => { 
+    eventdata.find({ Organizationid: req.params.Organizationid }, (error, data) => {
         if (error) {
             return next(error)
         } else {

@@ -24,7 +24,9 @@ mongoose
   });
 
 //declare port number for the api
-const PORT = process.env.PORT || 3000;
+const OrgA = process.env.PORT || 3000;
+const OrgB = process.env.PORT || 3001;
+const OrgC = process.env.PORT || 3002;
 
 //setup
 app.use(express.json());
@@ -38,8 +40,14 @@ const eventsDataRoute  = require('./routes/eventsData');
 app.use('/primaryData', primaryDataRoute);
 app.use('/eventData', eventsDataRoute)
 
-app.listen(PORT, () => {
-  console.log("Server started listening on port : ", PORT);
+app.listen(OrgA, () => {
+  console.log("Server started listening on Organization A : ", OrgA);
+});
+app.listen(OrgB, () => {
+  console.log("Server started listening on Organization B : ", OrgB);
+});
+app.listen(OrgC, () => {
+  console.log("Server started listening on Organization C : ", OrgC);
 });
 
 //error handler

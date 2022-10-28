@@ -2,6 +2,23 @@ const uuid = require('uuid');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//Organization schema
+
+let Organization = new Schema({ 
+    _id: {
+            type: Number,
+            required: true,
+            unique: true
+        },
+    OrgName: {
+        type: String,
+        require: true  
+    }
+}, {
+    collection: 'orgdata',
+    timestamps: true
+});
+
 //collection for intakeData
 let primaryDataSchema = new Schema({
     //reference each org 
@@ -15,9 +32,9 @@ let primaryDataSchema = new Schema({
         required: true,
         unique: true //used for delete functionality
     },
-    organizationName: {
-        type: String,
-        required: true
+    Organizationid: {
+        type: mongoose.Schema.Types.Number,
+        ref:'orgdata'
     },
     middleName: {
         type: String
@@ -64,9 +81,9 @@ let eventDataSchema = new Schema({
         require: true,
         unique: true // For use in delete CRUD
     },
-    organizationName: {
-        type: String,
-        required: true
+    Organizationid: {
+        type: mongoose.Schema.Types.Number,
+        ref:'orgdata'
     },
     services: {
         type: Array
@@ -105,6 +122,7 @@ let eventDataSchema = new Schema({
 // create models from mongoose schemas
 const primarydata = mongoose.model('primaryData', primaryDataSchema);
 const eventdata = mongoose.model('eventData', eventDataSchema);
+const orgdata = mongoose.model('orgdata', Organization);
 
 // package the models in an object to export 
-module.exports = { primarydata, eventdata }
+module.exports = { primarydata, eventdata, orgdata }
