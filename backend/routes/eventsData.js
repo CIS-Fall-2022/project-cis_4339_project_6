@@ -4,6 +4,8 @@ const router = express.Router();
 //importing data model schemas
 let { eventdata } = require("../models/models"); 
 
+const orgid = process.env.ORG;
+
 //GET all entries
 router.get("/", (req, res, next) => { 
     eventdata.find( 
@@ -17,9 +19,9 @@ router.get("/", (req, res, next) => {
     ).sort({ 'updatedAt': -1 }).limit(10);
 });
 
-//GET single entry by ID
+//GET single entry by ID DONE
 router.get("/id/:id", (req, res, next) => { 
-    eventdata.find({ _id: req.params.id }, (error, data) => {
+    eventdata.find({ Organizationid: orgid, _id: req.params.id }, (error, data) => {
         if (error) {
             return next(error)
         } else {
@@ -28,10 +30,11 @@ router.get("/id/:id", (req, res, next) => {
     })
 });
 
-//GET events based on organization
+//GET events based on organization DONE
 
-router.get("/events/:Organizationid", (req, res, next) => { 
-    eventdata.find({ Organizationid: req.params.Organizationid }, (error, data) => {
+router.get("/events", (req, res, next) => { 
+
+    eventdata.find({ Organizationid: orgid }, (error, data) => {
         if (error) {
             return next(error)
         } else {
@@ -40,42 +43,43 @@ router.get("/events/:Organizationid", (req, res, next) => {
     })
 });
 
-//GET attendees of all events from the last 2 months based on organization
-
-router.get("/eventattendees/:organizationName", (req, res, next) => { 
+//GET attendees of all events from the last 2 months based on organization NOT DONE
+router.get("/eventattendees", (req, res, next) => { 
     currentDate = new Date()
-    function subtractMonths(numOfMonths, date = new Date()) {
-    date.setMonth(date.getMonth() - numOfMonths);
-    return date;
+    function subtractMonths(numOfMonths, newdate = new Date()) {
+    newdate.setMonth(newdate.getMonth() - numOfMonths);
+    return newdate;
 } // this code is from https://bobbyhadz.com/blog/javascript-date-subtract-months#:~:text=function%20subtractMonths(numOfMonths%2C%20date%20%3D,Sun%20Feb%2027%202022%20console.
-    eventdata.aggregate([ { $match: { organizationName: req.params.organizationName, 
-        date : {$lte: currentDate, $gte: subtractMonths(2)}}}, //date has to be higher than current date minus two months
+
+    eventdata.aggregate([ { $match: { Organizationid: orgid, date : {$lte: currentDate, $gte: subtractMonths(2)}}}, //date has to be higher than current date minus two months
         { $project: { _id: 0, attendees: 1, eventName: 1, date : 1}}], (error, data) => {
         if (error) {
             return next(error)
         } else  {
             res.json(data)
         }
-    })
+    });
 });
 
-// Get attendees of a specific event
+// Get attendees of a specific event DONE
 router.get("/attendees/:eventName", (req, res, next) => { 
     //use of aggregate function to access a particular field of eventdata
+    eventdata.find({ Organizationid: orgid },
     eventdata.aggregate([ { $match: { eventName: req.params.eventName } },
-        { $project: { _id: 0, attendees: 1, eventName: 1} }], (error, data) => {
+        { $project: { _id: 0, attendees: 1, eventName: 1, Organizationid: 1} }], (error, data) => {
         if (error) {
             return next(error)
         } else {
             res.json(data)
         }
-    })
+    }))
 });
 
 
 
-//GET entries based on search query
+//GET entries based on search query DONE
 //Ex: '...?eventName=Food&searchBy=name' 
+//change
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
@@ -85,7 +89,8 @@ router.get("/search/", (req, res, next) => {
             date:  req.query["eventDate"]
         }
     };
-    eventdata.find( 
+    
+    eventdata.find( {Organizationid: orgid}), 
         dbQuery, 
         (error, data) => { 
             if (error) {
@@ -93,11 +98,11 @@ router.get("/search/", (req, res, next) => {
             } else {
                 res.json(data);
             }
-        }
-    );
+        };
 });
 
 //GET events for which a client is signed up
+//Change
 router.get("/client/:id", (req, res, next) => { 
     eventdata.find( 
         { attendees: req.params.id }, 
@@ -111,7 +116,8 @@ router.get("/client/:id", (req, res, next) => {
     );
 });
 
-//POST
+//POST 
+//Change
 router.post("/", (req, res, next) => { 
     eventdata.create( 
         req.body, 
