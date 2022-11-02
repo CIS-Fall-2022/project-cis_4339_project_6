@@ -21,7 +21,7 @@ router.get("/", (req, res, next) => {
     ).sort({ 'updatedAt': -1 }).limit(10);
 });
 
-//GET all clients based on organization
+//GET all clients based on organization 
 
 router.get("/clients", (req, res, next) => { 
     primarydata.find({ Organizationid: orgid }, (error, data) => {
@@ -33,7 +33,7 @@ router.get("/clients", (req, res, next) => {
     })
 });
 
-//GET single entry by ID
+//GET single entry by ID 
 router.get("/id/:id", (req, res, next) => {
     primarydata.find( 
         { _id: req.params.id, Organizationid: orgid}, 
@@ -47,7 +47,7 @@ router.get("/id/:id", (req, res, next) => {
     );
 });
 
-//GET entries based on search query
+//GET entries based on search query Not DONE
 //Ex: '...?firstName=Bob&lastName=&searchBy=name' 
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
@@ -88,7 +88,7 @@ router.post("/", (req, res, next) => {
     primarydata.createdAt instanceof Date;
 });
 
-//PUT update (make sure req body doesn't have the id)
+//PUT update (make sure req body doesn't have the id) 
 router.put("/:id", (req, res, next) => { 
     primarydata.findOneAndUpdate( 
         { _id: req.params.id }, 
