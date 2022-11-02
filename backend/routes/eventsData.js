@@ -43,41 +43,42 @@ router.get("/events", (req, res, next) => {
     })
 });
 
-//GET attendees of all events from the last 2 months based on organization NOT DONE
+//GET attendees of all events from the last 2 months based on organization DONE
 router.get("/eventattendees", (req, res, next) => { 
     currentDate = new Date()
     function subtractMonths(numOfMonths, newdate = new Date()) {
     newdate.setMonth(newdate.getMonth() - numOfMonths);
     return newdate;
-} // this code is from https://bobbyhadz.com/blog/javascript-date-subtract-months#:~:text=function%20subtractMonths(numOfMonths%2C%20date%20%3D,Sun%20Feb%2027%202022%20console.
-
-    eventdata.aggregate([ { $match: { Organizationid: orgid, date : {$lte: currentDate, $gte: subtractMonths(2)}}}, //date has to be higher than current date minus two months
-        { $project: { _id: 0, attendees: 1, eventName: 1, date : 1}}], (error, data) => {
-        if (error) {
-            return next(error)
-        } else  {
-            res.json(data)
-        }
-    });
-});
-
-// Get attendees of a specific event DONE
-router.get("/attendees/:eventName", (req, res, next) => { 
-    //use of aggregate function to access a particular field of eventdata
-    eventdata.find({ Organizationid: orgid },
-    eventdata.aggregate([ { $match: { eventName: req.params.eventName } },
-        { $project: { _id: 0, attendees: 1, eventName: 1, Organizationid: 1} }], (error, data) => {
+    } 
+// this code is from https://bobbyhadz.com/blog/javascript-date-subtract-months#:~:text=function%20subtractMonths(numOfMonths%2C%20date%20%3D,Sun%20Feb%2027%202022%20console.
+        
+    eventdata.find({ Organizationid: orgid, date: {$lte: currentDate, $gte: subtractMonths(2)}},
+        {_id: 0, attendees: 1, eventName: 1, date: 1}, (error, data) => {
         if (error) {
             return next(error)
         } else {
             res.json(data)
         }
-    }))
+    })
+});
+
+// Get attendees of a specific event DONE
+router.get("/attendees/:eventName", (req, res, next) => { 
+
+    eventdata.find({ Organizationid: orgid, eventName: req.params.eventName },
+         {_id: 0, attendees: 1, eventName: 1}, (error, data) => {
+        if (error) {
+            return next(error)
+        } else {
+            res.json(data)
+        }
+    })
 });
 
 
 
-//GET entries based on search query DONE
+
+//GET entries based on search query not DONE
 //Ex: '...?eventName=Food&searchBy=name' 
 //change
 router.get("/search/", (req, res, next) => { 
@@ -90,22 +91,21 @@ router.get("/search/", (req, res, next) => {
         }
     };
     
-    eventdata.find( {Organizationid: orgid}), 
-        dbQuery, 
+    eventdata.find( dbQuery, 
         (error, data) => { 
             if (error) {
                 return next(error);
             } else {
                 res.json(data);
             }
-        };
+    });
 });
 
-//GET events for which a client is signed up
-//Change
+//GET events for which a client is signed up DONE
 router.get("/client/:id", (req, res, next) => { 
     eventdata.find( 
-        { attendees: req.params.id }, 
+        { Organizationid: orgid, attendees: req.params.id },
+        {_id: 0, attendees: 1, eventName: 1}, 
         (error, data) => { 
             if (error) {
                 return next(error);
@@ -116,8 +116,7 @@ router.get("/client/:id", (req, res, next) => {
     );
 });
 
-//POST 
-//Change
+//POST DONE
 router.post("/", (req, res, next) => { 
     eventdata.create( 
         req.body, 
@@ -131,7 +130,7 @@ router.post("/", (req, res, next) => {
     );
 });
 
-//PUT
+//PUT done
 router.put("/:id", (req, res, next) => {
     eventdata.findOneAndUpdate(
         { _id: req.params.id },
@@ -146,11 +145,11 @@ router.put("/:id", (req, res, next) => {
     );
 });
 
-//PUT add attendee to event
+//PUT add attendee to event DONE
 router.put("/addAttendee/:id", (req, res, next) => {
-    //only add attendee if not yet signed uo
+    //only add attendee if not yet signed up
     eventdata.find( 
-        { _id: req.params.id, attendees: req.body.attendee }, 
+        { _id: req.params.id, attendees: req.body.attendee, Organizationid: orgid }, 
         (error, data) => { 
             if (error) {
                 return next(error);
@@ -175,7 +174,7 @@ router.put("/addAttendee/:id", (req, res, next) => {
     );
     
 });
-//DELETE by event name
+//DELETE by event name DONE
 router.delete("/events/:eventName", (req, res, next) => {
     //mongoose will use eventName of document
     eventdata.findOneAndRemove({eventName: req.params.eventName }, (error, data) => {
