@@ -5,6 +5,9 @@ const router = express.Router();
 let { primarydata } = require("../models/models"); 
 let { eventdata } = require("../models/models"); 
 
+const orgid = process.env.ORG;
+
+
 //GET all entries
 router.get("/", (req, res, next) => { 
     primarydata.find( 
@@ -18,10 +21,10 @@ router.get("/", (req, res, next) => {
     ).sort({ 'updatedAt': -1 }).limit(10);
 });
 
-//GET all clients based on organizationName
+//GET all clients based on organization
 
-router.get("/client/:organizationName", (req, res, next) => { 
-    primarydata.find({ organizationName: req.params.organizationName }, (error, data) => {
+router.get("/clients", (req, res, next) => { 
+    primarydata.find({ Organizationid: orgid }, (error, data) => {
         if (error) {
             return next(error)
         } else {
@@ -33,7 +36,7 @@ router.get("/client/:organizationName", (req, res, next) => {
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => {
     primarydata.find( 
-        { _id: req.params.id }, 
+        { _id: req.params.id, Organizationid: orgid}, 
         (error, data) => {
             if (error) {
                 return next(error);
