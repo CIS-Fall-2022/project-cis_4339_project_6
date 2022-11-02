@@ -78,16 +78,16 @@ router.get("/attendees/:eventName", (req, res, next) => {
 
 
 
-//GET entries based on search query not Done
+//GET entries based on search query
 //Ex: '...?eventName=Food&searchBy=name' 
 //change
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
-        dbQuery = { eventName: { $regex: `^${req.query["eventName"]}`, $options: "i" } }
+        dbQuery = { eventName: { $regex: `^${req.query["eventName"]}`, $options: "i" }, Organizationid: orgid }
     } else if (req.query["searchBy"] === 'date') {
         dbQuery = {
-            date:  req.query["eventDate"]
+            date:  req.query["eventDate"], Organizationid: orgid
         }
     };
     
