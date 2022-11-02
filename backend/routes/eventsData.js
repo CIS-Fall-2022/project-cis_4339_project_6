@@ -19,7 +19,7 @@ router.get("/", (req, res, next) => {
     ).sort({ 'updatedAt': -1 }).limit(10);
 });
 
-//GET single entry by ID DONE
+//GET single entry by ID 
 router.get("/id/:id", (req, res, next) => { 
     eventdata.find({ Organizationid: orgid, _id: req.params.id }, (error, data) => {
         if (error) {
@@ -30,7 +30,7 @@ router.get("/id/:id", (req, res, next) => {
     })
 });
 
-//GET events based on organization DONE
+//GET events based on organization 
 
 router.get("/events", (req, res, next) => { 
 
@@ -43,7 +43,7 @@ router.get("/events", (req, res, next) => {
     })
 });
 
-//GET attendees of all events from the last 2 months based on organization DONE
+//GET attendees of all events from the last 2 months based on organization
 router.get("/eventattendees", (req, res, next) => { 
     currentDate = new Date()
     function subtractMonths(numOfMonths, newdate = new Date()) {
@@ -62,7 +62,7 @@ router.get("/eventattendees", (req, res, next) => {
     })
 });
 
-// Get attendees of a specific event DONE
+// Get attendees of a specific event 
 router.get("/attendees/:eventName", (req, res, next) => { 
 
     eventdata.find({ Organizationid: orgid, eventName: req.params.eventName },
@@ -78,7 +78,7 @@ router.get("/attendees/:eventName", (req, res, next) => {
 
 
 
-//GET entries based on search query not DONE
+//GET entries based on search query not Done
 //Ex: '...?eventName=Food&searchBy=name' 
 //change
 router.get("/search/", (req, res, next) => { 
@@ -101,7 +101,7 @@ router.get("/search/", (req, res, next) => {
     });
 });
 
-//GET events for which a client is signed up DONE
+//GET events for which a client is signed up 
 router.get("/client/:id", (req, res, next) => { 
     eventdata.find( 
         { Organizationid: orgid, attendees: req.params.id },
@@ -116,7 +116,7 @@ router.get("/client/:id", (req, res, next) => {
     );
 });
 
-//POST DONE
+//POST 
 router.post("/", (req, res, next) => { 
     eventdata.create( 
         req.body, 
