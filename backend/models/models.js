@@ -32,7 +32,8 @@ let primaryDataSchema = new Schema({
     },
     Organizationid: {
         type: mongoose.Schema.Types.Number,
-        ref:'orgdata'
+        ref:'orgdata',
+        default: process.env.ORG
     },
     middleName: {
         type: String
@@ -81,7 +82,8 @@ let eventDataSchema = new Schema({
     },
     Organizationid: {
         type: mongoose.Schema.Types.Number,
-        ref:'orgdata'
+        ref:'orgdata',
+        default: process.env.ORG
     },
     services: {
         type: Array
