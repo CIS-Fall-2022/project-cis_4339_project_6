@@ -3,8 +3,21 @@ const router = express.Router();
 
 //importing data model schemas
 let { eventdata } = require("../models/models"); 
+let { orgdata } = require("../models/models"); 
 
 const orgid = process.env.ORG;
+
+//Get orgname from Organization
+router.get("/orgname", (req, res, next) => { 
+    orgdata.find({ Organizationid: orgid}, {_id: 0, OrgName: 1},(error, data) => {
+        if (error) {
+            return next(error)
+        } else {
+            res.json(data)
+        }
+    })
+});
+
 
 //GET all entries
 router.get("/", (req, res, next) => { 
