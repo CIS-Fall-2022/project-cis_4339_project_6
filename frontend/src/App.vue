@@ -44,11 +44,8 @@
     <div class="grow w-4/5">
       <section
         class="justify-end items-center h-24 flex"
-        style="
-          background: linear-gradient(250deg, #C8102E 70%, #efecec 50.6%);
-        "
-      >
-        <h1 class="mr-20 text-3xl text-white">Dataplatform</h1>
+        style="background: linear-gradient(250deg, #C8102E 70%, #efecec 50.6%);">
+        <h1 class="mr-20 text-3xl text-white">{{OrgName.OrgName}}</h1>
       </section>
       <div>
         <router-view></router-view>
@@ -58,8 +55,20 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "App",
+  data() {
+    return {
+      OrgName: [],
+    };
+  },
+  beforeMount() {
+    let apiURL = import.meta.env.VITE_ROOT_API + `/eventData/orgname`;
+    axios.get(apiURL).then((resp) => {
+      this.OrgName = resp.data[0];
+    });
+  },
 };
 </script>
 

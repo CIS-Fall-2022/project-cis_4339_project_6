@@ -9,7 +9,7 @@ const orgid = process.env.ORG;
 
 //Get orgname from Organization
 router.get("/orgname", (req, res, next) => { 
-    orgdata.find({ Organizationid: orgid}, {_id: 0, OrgName: 1},(error, data) => {
+    orgdata.find({ _id: orgid}, {_id: 0, OrgName: 1},(error, data) => {
         if (error) {
             return next(error)
         } else {
