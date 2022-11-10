@@ -25,11 +25,6 @@ let primaryDataSchema = new Schema({
         type: String,
         require: true        
     },
-    Clientid: {
-        type: Number,
-        required: true,
-        unique: true //used for delete functionality
-    },
     Organizationid: {
         type: mongoose.Schema.Types.Number,
         ref:'orgdata',

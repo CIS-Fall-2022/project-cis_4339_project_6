@@ -104,12 +104,12 @@ router.put("/:id", (req, res, next) => {
     );
 });
 //DELETE by id
-router.delete("/client/:id", (req, res, next) => {
-    primarydata.findOneAndRemove({Clientid: req.params.id }, (error, data) => {
+router.delete("/client/:_id", (req, res, next) => {
+    primarydata.findOneAndRemove({_id: req.params._id }, (error, data) => {
         if (error) {
             return next(error);
         } else {
-            res.send('event is deleted');
+            res.send('client has been deleted');
         }
     });
 });
