@@ -94,17 +94,16 @@ export default {
   },
   methods: {
     deleteClient(){
-                let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/client/${this.client._id}`;
-                
+         let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/client/${this.client._id}`;
 
-                if (window.confirm("Do you really want to delete?")) {
-                    axios.delete(apiURL).then(() => {
-                      alert("client deleted")
-                    }).catch(error => {
-                        console.log(error)
-                    });
-                }
-            },
+            if (window.confirm("Do you really want to delete?")) {
+               axios.delete(apiURL).then(() => {
+                 alert("client deleted")
+                 }).catch(error => {
+                  console.log(error)
+                });
+            }
+        },
 
     formattedDate(datetimeDB) {
       return DateTime.fromISO(datetimeDB).plus({ days: 1 }).toLocaleString();

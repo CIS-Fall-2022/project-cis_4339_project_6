@@ -197,8 +197,9 @@
             >Update Event</button>
           </div>
           <div class="flex justify-between mt-10 mr-20">
+            <button @click.prevent="deleteEvent(event._id)" @click="$router.push('/')" class="bg-red-700 text-white rounded">Delete</button>
+
           <!--Add button deletion-->
-          <button @click.prevent="deleteEvent(event._id)" class="bg-red-700 text-white rounded">Delete</button>       
           </div>   
           <div class="flex justify-between mt-10 mr-20">
             <button
@@ -263,6 +264,7 @@ export default {
       attendeeData: [],
       checkedServices: [],
       event: {
+        _id: "",
         eventName: "",
         services: [],
         date: "",
@@ -280,10 +282,11 @@ export default {
   beforeMount() {
     axios
       .get(
-        import.meta.env.VITE_ROOT_API + `/eventdata/id/${this.$route.params.id}`
+        import.meta.env.VITE_ROOT_API + `/eventData/id/${this.$route.params.id}`
       )
       .then((resp) => {
         let data = resp.data[0];
+        this.event._id = data._id;
         this.event.eventName = data.eventName;
         console.log(data.date);
         this.event.date = DateTime.fromISO(data.date).plus({ days: 1 }).toISODate();
@@ -311,19 +314,17 @@ export default {
       });
   },
   methods: {
-    deleteGrade(id){
-                let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/${this.id}`;
-                
-
-                if (window.confirm("Do you really want to delete?")) {
-                    axios.delete(apiURL).then(() => {
-                        this.Grades.splice(indexOfArrayItem, 1);
-                    }).catch(error => {
-                        console.log(error)
-                    });
-                }
-            },
-    //Add function to delete here
+    //Delete method
+    deleteEvent(){
+        let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/events/${this.client._id}`;
+            if (window.confirm("Do you really want to delete?")) {
+              axios.delete(apiURL).then(() => {
+                  alert("event deleted")
+                }).catch(error => {
+                    console.log(error)
+                 });
+             }
+          },
     formattedDate(datetimeDB) {
       return DateTime.fromISO(datetimeDB).plus({ days: 1 }).toLocaleString();
     },

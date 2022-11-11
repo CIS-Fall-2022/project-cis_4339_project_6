@@ -187,10 +187,10 @@ router.put("/addAttendee/:id", (req, res, next) => {
     );
     
 });
-//DELETE by event name DONE
-router.delete("/events/:eventName", (req, res, next) => {
+//DELETE event by _id
+router.delete("/events/:_id", (req, res, next) => {
     //mongoose will use eventName of document
-    eventdata.findOneAndRemove({eventName: req.params.eventName }, (error, data) => {
+    eventdata.findOneAndRemove({_id: req.params._id }, (error, data) => {
         if (error) {
             return next(error);
         } else {
