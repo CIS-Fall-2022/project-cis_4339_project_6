@@ -332,7 +332,7 @@ export default {
                 v-model="client.address.zip"
               />
             </label>
-          </div><button @click.prevent="deleteEvent(event._id)" class="bg-red-700 text-white rounded">Delete</button>    
+          </div><button @click.prevent="deleteClient(client._id)" class="bg-red-700 text-white rounded">Delete</button>    
           <div></div>
         </div>
 
