@@ -311,6 +311,18 @@ export default {
       });
   },
   methods: {
+    deleteGrade(id){
+                let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/${this.id}`;
+                
+
+                if (window.confirm("Do you really want to delete?")) {
+                    axios.delete(apiURL).then(() => {
+                        this.Grades.splice(indexOfArrayItem, 1);
+                    }).catch(error => {
+                        console.log(error)
+                    });
+                }
+            },
     //Add function to delete here
     formattedDate(datetimeDB) {
       return DateTime.fromISO(datetimeDB).plus({ days: 1 }).toLocaleString();
