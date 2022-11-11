@@ -128,7 +128,7 @@ export default {
       this.eventDate = "";
 
       //get all entries
-      let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/`;
+      let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/events`;
       this.queryData = [];
       axios.get(apiURL).then((resp) => {
         this.queryData = resp.data;

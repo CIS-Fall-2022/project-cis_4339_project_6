@@ -315,8 +315,8 @@ export default {
   },
   methods: {
     //Delete method
-    deleteEvent(){
-        let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/events/${this.client._id}`;
+    deleteEvent() {
+        let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/events/${this.event._id}`;
             if (window.confirm("Do you really want to delete?")) {
               axios.delete(apiURL).then(() => {
                   alert("event deleted")
