@@ -19,6 +19,7 @@ export default {
       eventData: [],
       // Client Data
       client: {
+        _id: "",
         firstName: "",
         middleName: "",
         lastName: "",
@@ -52,6 +53,7 @@ export default {
       )
       .then((resp) => {
         let data = resp.data[0];
+        this.client._id = data._id;
         this.client.firstName = data.firstName;
         this.client.middleName = data.middleName;
         this.client.lastName = data.lastName;
@@ -91,20 +93,19 @@ export default {
     });
   },
   methods: {
-    deleteGrade(id){
-                let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/${this.id}`;
+    deleteClient(){
+                let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/client/${this._id}`;
                 
 
                 if (window.confirm("Do you really want to delete?")) {
                     axios.delete(apiURL).then(() => {
-                        this.Grades.splice(indexOfArrayItem, 1);
+                      console.log("client deleted")
                     }).catch(error => {
                         console.log(error)
                     });
                 }
             },
-    
-    //Add delete function here
+
     formattedDate(datetimeDB) {
       return DateTime.fromISO(datetimeDB).plus({ days: 1 }).toLocaleString();
     },
@@ -346,7 +347,7 @@ export default {
             >Update Client</button>
           </div>
           <div class="flex justify-between mt-10 mr-20">
-            <button @click.prevent="deleteEvent(event._id)" class="bg-red-700 text-white rounded">Delete</button>
+            <button @click.prevent="deleteClient(client._id)" class="bg-red-700 text-white rounded">Delete</button>
             <button
               type="reset"
               class="border border-red-700 bg-white text-red-700 rounded"
