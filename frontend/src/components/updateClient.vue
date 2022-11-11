@@ -333,7 +333,7 @@ export default {
                 v-model="client.address.zip"
               />
             </label>
-          </div>
+          </div><button @click.prevent="deleteClient(client._id)" class="bg-red-700 text-white rounded">Delete</button>    
           <div></div>
         </div>
 
@@ -354,6 +354,7 @@ export default {
               @click="$router.go(-1)"
             >Go back</button>
           </div>
+        
         </div>
 
         <hr class="mt-10 mb-10" />
