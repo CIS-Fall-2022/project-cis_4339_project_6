@@ -91,6 +91,7 @@ export default {
     });
   },
   methods: {
+    //Add delete function here
     formattedDate(datetimeDB) {
       return DateTime.fromISO(datetimeDB).plus({ days: 1 }).toLocaleString();
     },
@@ -332,6 +333,7 @@ export default {
             >Update Client</button>
           </div>
           <div class="flex justify-between mt-10 mr-20">
+          <!--Add button for delete --> 
             <button
               type="reset"
               class="border border-red-700 bg-white text-red-700 rounded"
