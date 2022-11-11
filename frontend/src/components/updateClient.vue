@@ -94,12 +94,12 @@ export default {
   },
   methods: {
     deleteClient(){
-                let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/client/${this._id}`;
+                let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/client/${this.client._id}`;
                 
 
                 if (window.confirm("Do you really want to delete?")) {
                     axios.delete(apiURL).then(() => {
-                      console.log("client deleted")
+                      alert("client deleted")
                     }).catch(error => {
                         console.log(error)
                     });
@@ -333,8 +333,7 @@ export default {
                 v-model="client.address.zip"
               />
             </label>
-          </div><button @click.prevent="deleteClient(client._id)" class="bg-red-700 text-white rounded">Delete</button>    
-          <div></div>
+            </div>
         </div>
 
         <!-- grid container -->
@@ -347,7 +346,7 @@ export default {
             >Update Client</button>
           </div>
           <div class="flex justify-between mt-10 mr-20">
-            <button @click.prevent="deleteClient(client._id)" class="bg-red-700 text-white rounded">Delete</button>
+            <button @click.prevent="deleteClient(client._id)" @click="$router.push('/')" class="bg-red-700 text-white rounded">Delete</button>
             <button
               type="reset"
               class="border border-red-700 bg-white text-red-700 rounded"
