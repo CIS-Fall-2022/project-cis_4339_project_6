@@ -333,7 +333,7 @@ export default {
             >Update Client</button>
           </div>
           <div class="flex justify-between mt-10 mr-20">
-          <!--Add button for delete --> 
+            <button @click.prevent="deleteEvent(event._id)" class="bg-red-700 text-white rounded">Delete</button>
             <button
               type="reset"
               class="border border-red-700 bg-white text-red-700 rounded"
