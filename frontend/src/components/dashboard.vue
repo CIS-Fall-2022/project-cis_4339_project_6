@@ -5,7 +5,7 @@
     </div>
   </main>
   <section class="container">
-      <h2 class="font-bold text-2xl text-red-700 tracking-widest text-center mt-10">Bar Chart - Number Of Attendees In Events</h2>
+      <h2 class="font-bold text-2xl text-red-700 tracking-widest text-center mt-10">Number Of Attendees of the last 2 Months' Events</h2>
       <div class="columns">
           <div>
             <div>
