@@ -70,7 +70,7 @@ export default {
       try {
         this.error = null;
         this.loading = true;
-        const url = `http://localhost:3001/eventData/eventattendees`;
+        const url = import.meta.env.VITE_ROOT_API + `/eventData/eventattendees`;
         const response = await axios.get(url);
         //"re-organizing" - mapping json from the response
         this.labels = response.data.map((item) => item.eventName);

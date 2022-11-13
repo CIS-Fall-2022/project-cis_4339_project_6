@@ -66,7 +66,7 @@ router.get("/eventattendees", (req, res, next) => {
 // this code is from https://bobbyhadz.com/blog/javascript-date-subtract-months#:~:text=function%20subtractMonths(numOfMonths%2C%20date%20%3D,Sun%20Feb%2027%202022%20console.
         
     eventdata.find({ Organizationid: orgid, date: {$lte: currentDate, $gte: subtractMonths(2)}},
-        {_id: 0, attendees: 1, eventName: 1, date: 1}, (error, data) => {
+        {_id: 0, attendees: { $sum: { $size:"$attendees"}}, eventName: 1}, (error, data) => {
         if (error) {
             return next(error)
         } else {
