@@ -11,7 +11,8 @@ npm install
 Setup a .env file with following variables, e.g.:
 
 ```
-VITE_ROOT_API=http://localhost:3000
+Make sure port matches backend port (3001,3002, and 3003), for example:
+VITE_ROOT_API=http://localhost:3001
 ```
 ### Compiles and hot-reloads for development
 ```
