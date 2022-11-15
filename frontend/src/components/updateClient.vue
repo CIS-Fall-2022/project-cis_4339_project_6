@@ -133,6 +133,7 @@ export default {
               for (let i = 0; i < data.length; i++) {
                 this.clientEvents.push({
                   eventName: data[i].eventName,
+                  eventDate: data[i].date,
                 });
               }
             });
