@@ -345,6 +345,7 @@ export default {
             >Update Client</button>
           </div>
           <div class="flex justify-between mt-10 mr-20">
+             <!--Added button for deletion-->
             <button @click.prevent="deleteClient(client._id)" @click="$router.push('/')" class="bg-red-700 text-white rounded">Delete</button>
             <button
               type="reset"

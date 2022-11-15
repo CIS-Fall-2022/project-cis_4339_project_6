@@ -118,7 +118,7 @@ router.get("/search/", (req, res, next) => {
 router.get("/client/:id", (req, res, next) => { 
     eventdata.find( 
         { Organizationid: orgid, attendees: req.params.id },
-        {_id: 0, attendees: 1, eventName: 1}, 
+        {_id: 0, attendees: 1, eventName: 1, date : 1}, 
         (error, data) => { 
             if (error) {
                 return next(error);

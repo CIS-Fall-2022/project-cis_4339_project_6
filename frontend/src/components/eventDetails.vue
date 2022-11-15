@@ -197,9 +197,8 @@
             >Update Event</button>
           </div>
           <div class="flex justify-between mt-10 mr-20">
+            <!--Added button for deletion-->
             <button @click.prevent="deleteEvent(event._id)" @click="$router.push('/')" class="bg-red-700 text-white rounded">Delete</button>
-
-          <!--Add button deletion-->
           </div>   
           <div class="flex justify-between mt-10 mr-20">
             <button
@@ -314,7 +313,7 @@ export default {
       });
   },
   methods: {
-    //Delete method
+    //Delete method that gets event _id from data that is received from beforemount()
     deleteEvent() {
         let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/events/${this.event._id}`;
             if (window.confirm("Do you really want to delete?")) {
