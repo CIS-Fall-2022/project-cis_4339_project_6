@@ -65,7 +65,8 @@ export default {
             };
           })
           .catch((error) => {
-            console.log(error);
+            //Add error handling
+            alert(error);
           });
       }
     },
