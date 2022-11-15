@@ -100,7 +100,7 @@ export default {
                axios.delete(apiURL).then(() => {
                  alert("client deleted")
                  }).catch(error => {
-                  console.log(error)
+                  alert(error)
                 });
             }
         },
@@ -113,7 +113,7 @@ export default {
       axios.put(apiURL, this.client).then(() => {
         alert("Update has been saved.");
         this.$router.back().catch((error) => {
-          console.log(error);
+          alert(error);
         });
       });
     },
