@@ -93,6 +93,8 @@ export default {
     });
   },
   methods: {
+        //Delete method that gets client _id from data that is received from beforemount()
+
     deleteClient(){
          let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/client/${this.client._id}`;
 
